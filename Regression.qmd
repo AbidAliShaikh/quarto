@@ -1,0 +1,72 @@
+---
+title: "Regression"
+---
+
+# The US Murder data
+
+The state.x77 builtin database contains the murder data of US. We will analyse the cause of a murder in US. The following variables are analyzed using regression analysis:
+
+| Murder                                    | Population            | Illiteracy                               | Income                   | Frost                                                                   |
+|-------------------------------------------|-----------------------|------------------------------------------|--------------------------|-------------------------------------------------------------------------|
+| murder rate per 100,000 population (1976) | Population as of 1974 | Illiteracy (1970, percent of population) | Per capita income (1974) | mean number of days with minimum temperature below freezing (1931-1960) |
+|                                           |                       |                                          |                          |                                                                         |
+
+: Murder Statistic
+
+#### The regression analysis below shows significant t values in Illiteracy and population.
+
+```{r}
+states = as.data.frame(state.x77[,c('Murder','Population','Illiteracy','Income','Frost')])
+s2 <- states
+lm1 <- lm(Murder ~ . , data=states)
+summary(lm1)
+
+```
+
+![](http://127.0.0.1:43903/chunk_output/A6AA7B0Ee3c25e0e/F4151102/ccqi1zdyqvheh/000010.png)
+
+The above regression result show R-squared of 56%, implying the independent variables define the dependent variable 56%. The Illiteracy clearly corresponds to increased murders, however there the illiteracy rate is correlated inversely to income and frost, as shown in below correlogram.
+
+```{r}
+library(ggcorrplot)
+ggcor <- cor(states[,-1])
+ggcorrplot(ggcor, hc.order = TRUE, type = "lower", lab = TRUE, lab_size = 3, method="circle",colors = c("tomato2", "white", "springgreen3"), title="Correlogram of Illitercy in US", ggtheme=theme_bw)
+
+```
+
+We needed to be sure if these two were causes for the illiteracy in general. So, to find the causative effect we have to further find the effect of these two interactions on the Murder. The greater value of R-squared means the model is fitted better for the forecasting.
+
+```{r}
+lm1 <- lm(Murder~. + Income:Frost, data=states)
+summary(lm1)
+```
+
+The R-squared has increased to 63% and the population has also become significant contributor, the income and frost are indeed intervened to the increased illiteracy rate, so both issues could also be addressed together and not separate. Usually high income people resided in greater frost areas, like-wisely these areas had lesser illiterates as clear from the correlogram above.
+
+### Outlier Test
+
+The outliers are data points which do not completely fit in an ideal model and removing these outliers, we could have a model for a better forecasting.
+
+```{r}
+library(car)
+plot (lm1,ask = F)
+car::outlierTest(lm1)
+
+```
+
+The Bonferroni p is rather a more stringent criteria, In above, Nevada could be an outlier or it could be not an outlier considering the bonferroni p; In such a grey area, it solely dependent on the type of data and visual perception to exclude it or not.
+
+### Influence Plot
+
+```{r}
+
+car::influencePlot(lm1)
+
+
+```
+
+We can visualize which states have higher residual values and hence affecting the model adversely in above plot or we can find the high residual values as follows:
+
+```{r}
+sort(residuals(lm1))
+```

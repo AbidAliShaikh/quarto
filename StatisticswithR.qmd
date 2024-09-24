@@ -1,0 +1,6 @@
+---
+title: "Statistics with R"
+author: "Abid Ali Shaikh"
+---
+
+In statistics, population is represented by Ω (code: 3A9) while ω (code: 3c9) is one sample from population.

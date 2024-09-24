@@ -1,0 +1,52 @@
+---
+title: "Git Quotes"
+author: "Abid Ali"
+---
+
+# Git Command-line Methods
+
+------------------------------------------------------------------------
+
+1st approach
+
+:   git clone \<online-repo-url\>
+
+    ### If made any change locally then run:
+
+    git add -A
+
+    git commit -m "comt"
+
+    git push
+
+2nd Approach - from Local to remote
+
+:   git init \<directory-name\>
+
+    git add -A
+
+    git commit -m "msg"
+
+    ssh-keygen -t rsa -b 1024 -C "Email\@e.com"
+
+    #### If file name you give is testkey then locate it and cat testkey.pub
+
+    -   go to github.com/\<repo\> ; Click user icon and then select setting
+
+    -   select ssh and gpg keys
+
+    -   select new ssh key and paste above testkey.pub
+
+git remote add origin https://github.com/abidalishaikh/\<repo\>
+
+### Third Method
+
+git init
+
+git add -A
+
+git commit -m "message"
+
+git remote add origin https://github.com/abidalishaikh/\<repo\>
+
+git push -u origin master
