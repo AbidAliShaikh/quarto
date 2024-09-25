@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Abid Ali Shaikh">
 
-<title>WebScrapping – Quarto_website</title>
+<title>Regression – Quarto_website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Regression.html"> 
+    <a class="nav-link active" href="./Regression.html" aria-current="page"> 
 <span class="menu-text">Regression</span></a>
   </li>  
   <li class="nav-item">
@@ -155,8 +154,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">Quarto</a></li>
-  <li><a href="#running-code" id="toc-running-code" class="nav-link" data-scroll-target="#running-code">Running Code</a></li>
+  <li><a href="#the-us-murder-data" id="toc-the-us-murder-data" class="nav-link active" data-scroll-target="#the-us-murder-data">The US Murder data</a>
+  <ul class="collapse">
+  <li><a href="#outlier-test" id="toc-outlier-test" class="nav-link" data-scroll-target="#outlier-test">Outlier Test</a></li>
+  <li><a href="#influence-plot" id="toc-influence-plot" class="nav-link" data-scroll-target="#influence-plot">Influence Plot</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -165,19 +167,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">WebScrapping</h1>
+<h1 class="title">Regression</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Abid Ali Shaikh </p>
-          </div>
-  </div>
     
   
     
@@ -188,28 +184,218 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="quarto" class="level2">
-<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="the-us-murder-data" class="level1">
+<h1>The US Murder data</h1>
+<p>The state.x77 builtin database contains the murder data of US. We will analyse the cause of a murder in US. The following variables are analyzed using regression analysis:</p>
+<table class="caption-top table">
+<caption>Murder Statistic</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 11%">
+<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Murder</th>
+<th>Population</th>
+<th>Illiteracy</th>
+<th>Income</th>
+<th>Frost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>murder rate per 100,000 population (1976)</td>
+<td>Population as of 1974</td>
+<td>Illiteracy (1970, percent of population)</td>
+<td>Per capita income (1974)</td>
+<td>mean number of days with minimum temperature below freezing (1931-1960)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="the-regression-analysis-below-shows-significant-t-values-in-illiteracy-and-population." class="level4">
+<h4 class="anchored" data-anchor-id="the-regression-analysis-below-shows-significant-t-values-in-illiteracy-and-population.">The regression analysis below shows significant t values in Illiteracy and population.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>states <span class="ot">=</span> <span class="fu">as.data.frame</span>(state.x77[,<span class="fu">c</span>(<span class="st">'Murder'</span>,<span class="st">'Population'</span>,<span class="st">'Illiteracy'</span>,<span class="st">'Income'</span>,<span class="st">'Frost'</span>)])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> states</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Murder <span class="sc">~</span> . , <span class="at">data=</span>states)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Murder ~ ., data = states)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.7960 -1.6495 -0.0811  1.4815  7.6210 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 1.235e+00  3.866e+00   0.319   0.7510    
+Population  2.237e-04  9.052e-05   2.471   0.0173 *  
+Illiteracy  4.143e+00  8.744e-01   4.738 2.19e-05 ***
+Income      6.442e-05  6.837e-04   0.094   0.9253    
+Frost       5.813e-04  1.005e-02   0.058   0.9541    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.535 on 45 degrees of freedom
+Multiple R-squared:  0.567, Adjusted R-squared:  0.5285 
+F-statistic: 14.73 on 4 and 45 DF,  p-value: 9.133e-08</code></pre>
+</div>
+</div>
+<p><img src="http://127.0.0.1:43903/chunk_output/A6AA7B0Ee3c25e0e/F4151102/ccqi1zdyqvheh/000010.png" class="img-fluid"></p>
+<p>The above regression result show R-squared of 56%, implying the independent variables define the dependent variable 56%. The Illiteracy clearly corresponds to increased murders, however there the illiteracy rate is correlated inversely to income and frost, as shown in below correlogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ggcor <span class="ot">&lt;-</span> <span class="fu">cor</span>(states[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(ggcor, <span class="at">hc.order =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">"lower"</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">lab_size =</span> <span class="dv">3</span>, <span class="at">method=</span><span class="st">"circle"</span>,<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"tomato2"</span>, <span class="st">"white"</span>, <span class="st">"springgreen3"</span>), <span class="at">title=</span><span class="st">"Correlogram of Illitercy in US"</span>, <span class="at">ggtheme=</span>theme_bw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We needed to be sure if these two were causes for the illiteracy in general. So, to find the causative effect we have to further find the effect of these two interactions on the Murder. The greater value of R-squared means the model is fitted better for the forecasting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Murder<span class="sc">~</span>. <span class="sc">+</span> Income<span class="sc">:</span>Frost, <span class="at">data=</span>states)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Murder ~ . + Income:Frost, data = states)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.6351 -1.1679 -0.2744  1.6419  5.9772 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)   2.451e+01  9.150e+00   2.679  0.01036 * 
+Population    2.714e-04  8.622e-05   3.148  0.00295 **
+Illiteracy    2.344e+00  1.043e+00   2.247  0.02973 * 
+Income       -4.503e-03  1.769e-03  -2.545  0.01450 * 
+Frost        -1.867e-01  6.829e-02  -2.733  0.00900 **
+Income:Frost  3.922e-05  1.417e-05   2.768  0.00822 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.366 on 44 degrees of freedom
+Multiple R-squared:  0.6312,    Adjusted R-squared:  0.5893 
+F-statistic: 15.06 on 5 and 44 DF,  p-value: 1.296e-08</code></pre>
+</div>
+</div>
+<p>The R-squared has increased to 63% and the population has also become significant contributor, the income and frost are indeed intervened to the increased illiteracy rate, so both issues could also be addressed together and not separate. Usually high income people resided in greater frost areas, like-wisely these areas had lesser illiterates as clear from the correlogram above.</p>
 </section>
-<section id="running-code" class="level2">
-<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="outlier-test" class="level3">
+<h3 class="anchored" data-anchor-id="outlier-test">Outlier Test</h3>
+<p>The outliers are data points which do not completely fit in an ideal model and removing these outliers, we could have a model for a better forecasting.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (lm1,<span class="at">ask =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">outlierTest</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>No Studentized residuals with Bonferroni p &lt; 0.05
+Largest |rstudent|:
+       rstudent unadjusted p-value Bonferroni p
+Nevada 2.991931          0.0045772      0.22886</code></pre>
 </div>
 </div>
-<p>You can add options to executable code like this</p>
+<p>The Bonferroni p is rather a more stringent criteria, In above, Nevada could be an outlier or it could be not an outlier considering the bonferroni p; In such a grey area, it solely dependent on the type of data and visual perception to exclude it or not.</p>
+</section>
+<section id="influence-plot" class="level3">
+<h3 class="anchored" data-anchor-id="influence-plot">Influence Plot</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">influencePlot</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>                StudRes       Hat      CookD
+Alaska        1.3519482 0.4526362 0.24725649
+Hawaii       -0.3504961 0.4037481 0.01414625
+Nevada        2.9919305 0.1580994 0.23728729
+North Dakota -2.1814462 0.1245126 0.10392049</code></pre>
 </div>
 </div>
-<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<p>We can visualize which states have higher residual values and hence affecting the model adversely in above plot or we can find the high residual values as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">residuals</span>(lm1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  North Dakota    Connecticut  Massachusetts   Rhode Island      Minnesota 
+    -4.6351037     -3.9508817     -3.9321050     -3.8769752     -3.0941730 
+          Iowa      Wisconsin     New Jersey   Pennsylvania      Louisiana 
+    -2.5920895     -2.5690196     -2.4454261     -2.4006150     -2.3679373 
+      Nebraska   South Dakota         Oregon          Texas    Mississippi 
+    -1.7603972     -1.4014880     -1.1767318     -1.1414346     -1.0590364 
+       Arizona       Oklahoma  West Virginia     Washington       Arkansas 
+    -0.9920987     -0.9887473     -0.8078434     -0.8070507     -0.6997168 
+        Hawaii         Kansas  New Hampshire           Ohio          Maine 
+    -0.6467861     -0.6016978     -0.5238584     -0.3911226     -0.3718196 
+      New York South Carolina     California           Utah          Idaho 
+    -0.1769995      0.1733659      0.2118959      0.3349708      0.8801093 
+      Delaware        Montana        Indiana North Carolina       Colorado 
+     0.8827238      0.9677768      1.0284071      1.1221828      1.1465536 
+     Tennessee     New Mexico       Virginia        Alabama       Illinois 
+     1.1588588      1.3944265      1.7243861      1.8994800      1.9118831 
+      Kentucky         Alaska       Maryland        Florida        Vermont 
+     2.0421557      2.3444490      2.4906459      2.5579925      2.6700388 
+       Wyoming       Missouri        Georgia       Michigan         Nevada 
+     2.7599325      2.9219468      3.3624239      3.4473389      5.9772102 </code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
