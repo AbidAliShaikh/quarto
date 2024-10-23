@@ -1,15 +1,17 @@
 ---
 title: "Git Quotes"
 author: "Abid Ali"
+format: html
+toc: true
 ---
 
 # Git Command-line Methods
 
 ------------------------------------------------------------------------
 
-1st approach
+:   ## 1st Approach
 
-:   git clone \<online-repo-url\>
+    git clone \<online-repo-url\>
 
     ### If made any change locally then run:
 
@@ -19,9 +21,9 @@ author: "Abid Ali"
 
     git push
 
-2nd Approach - from Local to remote
+:   ## 2nd Approach - from Local to remote
 
-:   git init \<directory-name\>
+    git init \<directory-name\>
 
     git add -A
 
@@ -29,7 +31,7 @@ author: "Abid Ali"
 
     ssh-keygen -t rsa -b 1024 -C "Email\@e.com"
 
-    #### If file name you give is testkey then locate it and cat testkey.pub
+    If file name you give is testkey then locate it and cat testkey.pub
 
     -   go to github.com/\<repo\> ; Click user icon and then select setting
 
@@ -39,7 +41,7 @@ author: "Abid Ali"
 
 git remote add origin https://github.com/abidalishaikh/\<repo\>
 
-### Third Method
+## 3rd Approach
 
 git init
 

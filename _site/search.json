@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "GitSetup.html",
+    "href": "GitSetup.html",
+    "title": "Git Quotes",
+    "section": "",
+    "text": ": ## 1st Approach\ngit clone \\&lt;online-repo-url\\&gt;\n\n### If made any change locally then run:\n\ngit add -A\n\ngit commit -m \"comt\"\n\ngit push\n: ## 2nd Approach - from Local to remote\ngit init \\&lt;directory-name\\&gt;\n\ngit add -A\n\ngit commit -m \"msg\"\n\nssh-keygen -t rsa -b 1024 -C \"Email\\@e.com\"\n\nIf file name you give is testkey then locate it and cat testkey.pub\n\n-   go to github.com/\\&lt;repo\\&gt; ; Click user icon and then select setting\n\n-   select ssh and gpg keys\n\n-   select new ssh key and paste above testkey.pub\ngit remote add origin https://github.com/abidalishaikh/&lt;repo&gt;\n\n\ngit init\ngit add -A\ngit commit -m “message”\ngit remote add origin https://github.com/abidalishaikh/&lt;repo&gt;\ngit push -u origin master"
+  },
+  {
+    "objectID": "GitSetup.html#rd-approach",
+    "href": "GitSetup.html#rd-approach",
+    "title": "Git Quotes",
+    "section": "",
+    "text": "git init\ngit add -A\ngit commit -m “message”\ngit remote add origin https://github.com/abidalishaikh/&lt;repo&gt;\ngit push -u origin master"
+  },
+  {
+    "objectID": "WebScrapping.html",
+    "href": "WebScrapping.html",
+    "title": "WebScrapping",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n#loading Libraries\nlibrary(xml2)\nlibrary(httr)\nlibrary(rvest)\n\nr &lt;- read_html(\"https://datatrail-jhu.github.io/stable_website/webscrape.html\")\ns &lt;- html_nodes(r,\"strong\")\nt &lt;- html_text(s)\nprint(t)\n\n[1] \"rvest\"        \"httr\"         \"dbplyr\"       \"jsonlite\"     \"googlesheets\"\n\n### working with weather website\nr &lt;- read_html(\"https://planetnews.com/live/bbc-news.html\")\n#ele &lt;- html_elements(r,\".td-main-sidebar\")\ns &lt;- html_nodes(r,\".td-main-sidebar\")\nt &lt;- html_text(s)\nprint(t)\n\n[1] \"\\r\\n                            \\r\\n                                \\n\\t\\tTop Stories\\n\\t\\t\\n\\t\\t\\t\\t\\tNetanyahu Refused Any Truce Urged By The US\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tBiden Allegedly Helping Israel To Dislocate Palestinians\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tCNN Live Stream\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tBiden Talked To Netanyahu & El-Sisi To Address Gaza Aid\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tUS Attacked Iran-Backed Forces In Syria\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\r\\n                        \""
+  },
+  {
+    "objectID": "WebScrapping.html#webscrapping",
+    "href": "WebScrapping.html#webscrapping",
+    "title": "WebScrapping",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n#loading Libraries\nlibrary(xml2)\nlibrary(httr)\nlibrary(rvest)\n\nr &lt;- read_html(\"https://datatrail-jhu.github.io/stable_website/webscrape.html\")\ns &lt;- html_nodes(r,\"strong\")\nt &lt;- html_text(s)\nprint(t)\n\n[1] \"rvest\"        \"httr\"         \"dbplyr\"       \"jsonlite\"     \"googlesheets\"\n\n### working with weather website\nr &lt;- read_html(\"https://planetnews.com/live/bbc-news.html\")\n#ele &lt;- html_elements(r,\".td-main-sidebar\")\ns &lt;- html_nodes(r,\".td-main-sidebar\")\nt &lt;- html_text(s)\nprint(t)\n\n[1] \"\\r\\n                            \\r\\n                                \\n\\t\\tTop Stories\\n\\t\\t\\n\\t\\t\\t\\t\\tNetanyahu Refused Any Truce Urged By The US\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tBiden Allegedly Helping Israel To Dislocate Palestinians\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tCNN Live Stream\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tBiden Talked To Netanyahu & El-Sisi To Address Gaza Aid\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\tUS Attacked Iran-Backed Forces In Syria\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\r\\n                        \""
+  },
+  {
+    "objectID": "WebScrapping.html#running-code",
+    "href": "WebScrapping.html#running-code",
+    "title": "WebScrapping",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  }
+]
