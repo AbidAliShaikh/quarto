@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Abid Ali">
+<meta name="author" content="Abid Ali Shaikh">
 
-<title>Quarto Website - Git Quotes</title>
+<title>Quarto Website - Exploratory Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Regression</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./GitSetup.html" aria-current="page"> 
+    <a class="nav-link" href="./GitSetup.html"> 
 <span class="menu-text">Git Setup</span></a>
   </li>  
 </ul>
@@ -117,25 +117,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#git-command-line-methods" id="toc-git-command-line-methods" class="nav-link active" data-scroll-target="#git-command-line-methods">Git Command-line Methods</a>
-  <ul class="collapse">
-  <li><a href="#st-approach" id="toc-st-approach" class="nav-link" data-scroll-target="#st-approach">1st Approach</a></li>
-  <li><a href="#nd-approach---from-local-to-remote" id="toc-nd-approach---from-local-to-remote" class="nav-link" data-scroll-target="#nd-approach---from-local-to-remote">2nd Approach - from Local to remote</a></li>
-  <li><a href="#rd-approach" id="toc-rd-approach" class="nav-link" data-scroll-target="#rd-approach">3rd Approach</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Git Quotes</h1>
+<h1 class="title">Exploratory Analysis</h1>
 </div>
 
 
@@ -145,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Abid Ali </p>
+             <p>Abid Ali Shaikh </p>
           </div>
   </div>
     
@@ -158,51 +147,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="git-command-line-methods" class="level1">
-<h1>Git Command-line Methods</h1>
-<hr>
-<section id="st-approach" class="level2">
-<h2 class="anchored" data-anchor-id="st-approach">1st Approach</h2>
-<pre><code>git clone \&lt;online-repo-url\&gt;
-
-### If made any change locally then run:
-
-git add -A
-
-git commit -m "comt"
-
-git push</code></pre>
-</section>
-<section id="nd-approach---from-local-to-remote" class="level2">
-<h2 class="anchored" data-anchor-id="nd-approach---from-local-to-remote">2nd Approach - from Local to remote</h2>
-<pre><code>git init \&lt;directory-name\&gt;
-
-git add -A
-
-git commit -m "msg"
-
-ssh-keygen -t rsa -b 1024 -C "Email\@e.com"
-
-If file name you give is testkey then locate it and cat testkey.pub
-
--   go to github.com/\&lt;repo\&gt; ; Click user icon and then select setting
-
--   select ssh and gpg keys
-
--   select new ssh key and paste above testkey.pub</code></pre>
-<p>git remote add origin https://github.com/abidalishaikh/&lt;repo&gt;</p>
-</section>
-<section id="rd-approach" class="level2">
-<h2 class="anchored" data-anchor-id="rd-approach">3rd Approach</h2>
-<p>git init</p>
-<p>git add -A</p>
-<p>git commit -m “message”</p>
-<p>git remote add origin https://github.com/abidalishaikh/&lt;repo&gt;</p>
-<p>git push -u origin master</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

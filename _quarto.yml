@@ -1,18 +1,23 @@
-
 project:
   type: website
   output-dir: docs
 
 website:
-  title: "Quarto_website"
+  title: "Quarto Website"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - Regression.qmd
-      - GitSetup.qmd
-
+      - href: about.qmd
+        text: About
+      - href: Regression.qmd
+        text: Regression
+      - href: GitSetup.qmd
+        text: Git Setup
+        menu:
+          - href: exploratory.qmd
+            text: Exploratory Analysis
+          
 format:
   html:
     theme: cosmo
@@ -20,4 +25,3 @@ format:
     toc: true
 
 editor: visual
-
