@@ -123,6 +123,8 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#git-command-line-methods" id="toc-git-command-line-methods" class="nav-link active" data-scroll-target="#git-command-line-methods">Git Command-line Methods</a>
   <ul class="collapse">
+  <li><a href="#st-approach" id="toc-st-approach" class="nav-link" data-scroll-target="#st-approach">1st Approach</a></li>
+  <li><a href="#nd-approach---from-local-to-remote" id="toc-nd-approach---from-local-to-remote" class="nav-link" data-scroll-target="#nd-approach---from-local-to-remote">2nd Approach - from Local to remote</a></li>
   <li><a href="#rd-approach" id="toc-rd-approach" class="nav-link" data-scroll-target="#rd-approach">3rd Approach</a></li>
   </ul></li>
   </ul>
@@ -159,7 +161,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="git-command-line-methods" class="level1">
 <h1>Git Command-line Methods</h1>
 <hr>
-<p>: ## 1st Approach</p>
+<section id="st-approach" class="level2">
+<h2 class="anchored" data-anchor-id="st-approach">1st Approach</h2>
 <pre><code>git clone \&lt;online-repo-url\&gt;
 
 ### If made any change locally then run:
@@ -169,7 +172,9 @@ git add -A
 git commit -m "comt"
 
 git push</code></pre>
-<p>: ## 2nd Approach - from Local to remote</p>
+</section>
+<section id="nd-approach---from-local-to-remote" class="level2">
+<h2 class="anchored" data-anchor-id="nd-approach---from-local-to-remote">2nd Approach - from Local to remote</h2>
 <pre><code>git init \&lt;directory-name\&gt;
 
 git add -A
@@ -186,6 +191,7 @@ If file name you give is testkey then locate it and cat testkey.pub
 
 -   select new ssh key and paste above testkey.pub</code></pre>
 <p>git remote add origin https://github.com/abidalishaikh/&lt;repo&gt;</p>
+</section>
 <section id="rd-approach" class="level2">
 <h2 class="anchored" data-anchor-id="rd-approach">3rd Approach</h2>
 <p>git init</p>

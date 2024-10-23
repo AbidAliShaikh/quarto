@@ -9,7 +9,7 @@ toc: true
 
 ------------------------------------------------------------------------
 
-:   ## 1st Approach
+## 1st Approach
 
     git clone \<online-repo-url\>
 
@@ -21,7 +21,7 @@ toc: true
 
     git push
 
-:   ## 2nd Approach - from Local to remote
+## 2nd Approach - from Local to remote
 
     git init \<directory-name\>
 
