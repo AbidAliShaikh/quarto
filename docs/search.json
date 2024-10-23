@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "WebScrapping.html",
+    "href": "WebScrapping.html",
+    "title": "WebScrapping",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "WebScrapping.html#quarto",
+    "href": "WebScrapping.html#quarto",
+    "title": "WebScrapping",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "WebScrapping.html#running-code",
+    "href": "WebScrapping.html#running-code",
+    "title": "WebScrapping",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  },
+  {
+    "objectID": "Regression.html",
+    "href": "Regression.html",
+    "title": "Regression",
+    "section": "",
+    "text": "The US Murder data\nThe state.x77 builtin database contains the murder data of US. We will analyse the cause of a murder in US. The following variables are analyzed using regression analysis:\n\nMurder Statistic\n\n\n\n\n\n\n\n\n\nMurder\nPopulation\nIlliteracy\nIncome\nFrost\n\n\n\n\nmurder rate per 100,000 population (1976)\nPopulation as of 1974\nIlliteracy (1970, percent of population)\nPer capita income (1974)\nmean number of days with minimum temperature below freezing (1931-1960)\n\n\n\n\n\n\n\n\n\n\n\nThe regression analysis below shows significant t values in Illiteracy and population.\n\nstates = as.data.frame(state.x77[,c('Murder','Population','Illiteracy','Income','Frost')])\ns2 &lt;- states\nlm1 &lt;- lm(Murder ~ . , data=states)\nsummary(lm1)\n\n\nCall:\nlm(formula = Murder ~ ., data = states)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.7960 -1.6495 -0.0811  1.4815  7.6210 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 1.235e+00  3.866e+00   0.319   0.7510    \nPopulation  2.237e-04  9.052e-05   2.471   0.0173 *  \nIlliteracy  4.143e+00  8.744e-01   4.738 2.19e-05 ***\nIncome      6.442e-05  6.837e-04   0.094   0.9253    \nFrost       5.813e-04  1.005e-02   0.058   0.9541    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.535 on 45 degrees of freedom\nMultiple R-squared:  0.567, Adjusted R-squared:  0.5285 \nF-statistic: 14.73 on 4 and 45 DF,  p-value: 9.133e-08\n\n\n\nThe above regression result show R-squared of 56%, implying the independent variables define the dependent variable 56%. The Illiteracy clearly corresponds to increased murders, however there the illiteracy rate is correlated inversely to income and frost, as shown in below correlogram.\n\nlibrary(ggcorrplot)\n\nLoading required package: ggplot2\n\nggcor &lt;- cor(states[,-1])\nggcorrplot(ggcor, hc.order = TRUE, type = \"lower\", lab = TRUE, lab_size = 3, method=\"circle\",colors = c(\"tomato2\", \"white\", \"springgreen3\"), title=\"Correlogram of Illitercy in US\", ggtheme=theme_bw)\n\n\n\n\n\n\n\n\nWe needed to be sure if these two were causes for the illiteracy in general. So, to find the causative effect we have to further find the effect of these two interactions on the Murder. The greater value of R-squared means the model is fitted better for the forecasting.\n\nlm1 &lt;- lm(Murder~. + Income:Frost, data=states)\nsummary(lm1)\n\n\nCall:\nlm(formula = Murder ~ . + Income:Frost, data = states)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.6351 -1.1679 -0.2744  1.6419  5.9772 \n\nCoefficients:\n               Estimate Std. Error t value Pr(&gt;|t|)   \n(Intercept)   2.451e+01  9.150e+00   2.679  0.01036 * \nPopulation    2.714e-04  8.622e-05   3.148  0.00295 **\nIlliteracy    2.344e+00  1.043e+00   2.247  0.02973 * \nIncome       -4.503e-03  1.769e-03  -2.545  0.01450 * \nFrost        -1.867e-01  6.829e-02  -2.733  0.00900 **\nIncome:Frost  3.922e-05  1.417e-05   2.768  0.00822 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.366 on 44 degrees of freedom\nMultiple R-squared:  0.6312,    Adjusted R-squared:  0.5893 \nF-statistic: 15.06 on 5 and 44 DF,  p-value: 1.296e-08\n\n\nThe R-squared has increased to 63% and the population has also become significant contributor, the income and frost are indeed intervened to the increased illiteracy rate, so both issues could also be addressed together and not separate. Usually high income people resided in greater frost areas, like-wisely these areas had lesser illiterates as clear from the correlogram above.\n\n\nOutlier Test\nThe outliers are data points which do not completely fit in an ideal model and removing these outliers, we could have a model for a better forecasting.\n\nlibrary(car)\n\nLoading required package: carData\n\nplot (lm1,ask = F)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncar::outlierTest(lm1)\n\nNo Studentized residuals with Bonferroni p &lt; 0.05\nLargest |rstudent|:\n       rstudent unadjusted p-value Bonferroni p\nNevada 2.991931          0.0045772      0.22886\n\n\nThe Bonferroni p is rather a more stringent criteria, In above, Nevada could be an outlier or it could be not an outlier considering the bonferroni p; In such a grey area, it solely dependent on the type of data and visual perception to exclude it or not.\n\n\nInfluence Plot\n\ncar::influencePlot(lm1)\n\n\n\n\n\n\n\n\n                StudRes       Hat      CookD\nAlaska        1.3519482 0.4526362 0.24725649\nHawaii       -0.3504961 0.4037481 0.01414625\nNevada        2.9919305 0.1580994 0.23728729\nNorth Dakota -2.1814462 0.1245126 0.10392049\n\n\nWe can visualize which states have higher residual values and hence affecting the model adversely in above plot or we can find the high residual values as follows:\n\nsort(residuals(lm1))\n\n  North Dakota    Connecticut  Massachusetts   Rhode Island      Minnesota \n    -4.6351037     -3.9508817     -3.9321050     -3.8769752     -3.0941730 \n          Iowa      Wisconsin     New Jersey   Pennsylvania      Louisiana \n    -2.5920895     -2.5690196     -2.4454261     -2.4006150     -2.3679373 \n      Nebraska   South Dakota         Oregon          Texas    Mississippi \n    -1.7603972     -1.4014880     -1.1767318     -1.1414346     -1.0590364 \n       Arizona       Oklahoma  West Virginia     Washington       Arkansas \n    -0.9920987     -0.9887473     -0.8078434     -0.8070507     -0.6997168 \n        Hawaii         Kansas  New Hampshire           Ohio          Maine \n    -0.6467861     -0.6016978     -0.5238584     -0.3911226     -0.3718196 \n      New York South Carolina     California           Utah          Idaho \n    -0.1769995      0.1733659      0.2118959      0.3349708      0.8801093 \n      Delaware        Montana        Indiana North Carolina       Colorado \n     0.8827238      0.9677768      1.0284071      1.1221828      1.1465536 \n     Tennessee     New Mexico       Virginia        Alabama       Illinois \n     1.1588588      1.3944265      1.7243861      1.8994800      1.9118831 \n      Kentucky         Alaska       Maryland        Florida        Vermont \n     2.0421557      2.3444490      2.4906459      2.5579925      2.6700388 \n       Wyoming       Missouri        Georgia       Michigan         Nevada \n     2.7599325      2.9219468      3.3624239      3.4473389      5.9772102"
+  },
+  {
+    "objectID": "GitSetup.html",
+    "href": "GitSetup.html",
+    "title": "Git Quotes",
+    "section": "",
+    "text": "Git Command-line Methods\n\n\n1st approach\n\ngit clone &lt;online-repo-url&gt;\nIf made any change locally then run:\ngit add -A\ngit commit -m “comt”\ngit push\n\n2nd Approach - from Local to remote\n\ngit init &lt;directory-name&gt;\ngit add -A\ngit commit -m “msg”\nssh-keygen -t rsa -b 1024 -C “Email@e.com”\nIf file name you give is testkey then locate it and cat testkey.pub\n\ngo to github.com/&lt;repo&gt; ; Click user icon and then select setting\nselect ssh and gpg keys\nselect new ssh key and paste above testkey.pub\n\n\n\ngit remote add origin https://github.com/abidalishaikh/&lt;repo&gt;\n\nThird Method\ngit init\ngit add -A\ngit commit -m “message”\ngit remote add origin https://github.com/abidalishaikh/&lt;repo&gt;\ngit push -u origin master"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#title-quarto_website",
+    "href": "index.html#title-quarto_website",
+    "title": "Quarto_website",
+    "section": "title: “Quarto_website”",
+    "text": "title: “Quarto_website”\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "StatisticswithR.html",
+    "href": "StatisticswithR.html",
+    "title": "Statistics with R",
+    "section": "",
+    "text": "In statistics, population is represented by Ω (code: 3A9) while ω (code: 3c9) is one sample from population."
+  }
+]
