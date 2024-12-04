@@ -9,35 +9,38 @@ toc: true
 
 ------------------------------------------------------------------------
 
+::: panel-tabset
 ## 1st Approach
 
-    git clone \<online-repo-url\>
+git clone \<online-repo-url\>
 
-    ### If made any change locally then run:
+### If made any change locally then run:
 
-    git add -A
+git add -A
 
-    git commit -m "comt"
+git commit -m "comt"
 
-    git push
+git push
 
-## 2nd Approach - from Local to remote
+## 2nd Approach
 
-    git init \<directory-name\>
+### from local to remote
 
-    git add -A
+git init \<directory-name\>
 
-    git commit -m "msg"
+git add -A
 
-    ssh-keygen -t rsa -b 1024 -C "Email\@e.com"
+git commit -m "msg"
 
-    If file name you give is testkey then locate it and cat testkey.pub
+ssh-keygen -t rsa -b 1024 -C "Email\@e.com"
 
-    -   go to github.com/\<repo\> ; Click user icon and then select setting
+If file name you give is testkey then locate it and cat testkey.pub
 
-    -   select ssh and gpg keys
+-   go to github.com/\<repo\> ; Click user icon and then select setting
 
-    -   select new ssh key and paste above testkey.pub
+-   select ssh and gpg keys
+
+-   select new ssh key and paste above testkey.pub
 
 git remote add origin https://github.com/abidalishaikh/\<repo\>
 
@@ -52,3 +55,4 @@ git commit -m "message"
 git remote add origin https://github.com/abidalishaikh/\<repo\>
 
 git push -u origin master
+:::

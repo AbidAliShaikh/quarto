@@ -6,17 +6,20 @@ website:
   title: "Quarto Website"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: Regression.qmd
-        text: Regression
-      - href: GitSetup.qmd
-        text: Git Setup
+      - text: "Home"
+        href: index.qmd
+      - text: "About"
+        href: about.qmd
+      - text: "Regression Steps"
+        href: Regression_analysis.qmd
+      - text: "Git Setup"
+        href: GitSetup.qmd
+      - text: "Dark Theme"
+        href: NewThemic.qmd
+      - text: "Analysis"
         menu:
-          - href: exploratory.qmd
-            text: Exploratory Analysis
+          - text: "Exploratory Analysis"
+            href: exploratory.qmd
           
 format:
   html:

@@ -2,3 +2,9 @@
 title: "Exploratory Analysis"
 author: "Abid Ali Shaikh"
 ---
+
+-   The Exploratory analysis involves initial general observation of the data for inferential purposes and any hypothesis after wards using statistical methods; the initial general observation involves summary statistics, mean, mode and medians and sometimes standard deviations. There are various R base functions to do it some of them are list below:
+
+    1.  summary(data_frame)
+
+    2.  describe.

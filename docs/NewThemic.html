@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Abid Ali Shaikh">
 
-<title>Quarto Website - Statistics with R</title>
+<title>Quarto Website - Legacy theming with bslib and thematic</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -106,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Git Setup</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./NewThemic.html"> 
+    <a class="nav-link active" href="./NewThemic.html" aria-current="page"> 
 <span class="menu-text">Dark Theme</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -132,26 +165,32 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-markdown" id="toc-r-markdown" class="nav-link active" data-scroll-target="#r-markdown">R Markdown</a></li>
+  <li><a href="#themed-plots" id="toc-themed-plots" class="nav-link" data-scroll-target="#themed-plots">Themed Plots</a>
+  <ul class="collapse">
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2">ggplot2</a></li>
+  <li><a href="#lattice" id="toc-lattice" class="nav-link" data-scroll-target="#lattice">lattice</a></li>
+  <li><a href="#base" id="toc-base" class="nav-link" data-scroll-target="#base">base</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics with R</h1>
+<h1 class="title">Legacy theming with bslib and thematic</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Abid Ali Shaikh </p>
-          </div>
-  </div>
     
   
     
@@ -162,9 +201,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>In statistics, population is represented by Ω (code: 3A9) while ω (code: 3c9) is one sample from population.</p>
+<section id="r-markdown" class="level2">
+<h2 class="anchored" data-anchor-id="r-markdown">R Markdown</h2>
+<p>This is an R Markdown document themed with <a href="https://rstudio.github.io/bslib/"><code>{bslib}</code> package</a>. <code>{bslib}</code> makes it easy to customize the main colors and fonts of a <code>html_document</code>, <a href="https://flexdashboard-pkg.netlify.app/articles/articles/theme.html"><code>flexdashboard::flex_dashboard</code></a>, <a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">shiny::fluidPage()</a>, or more generally any website that uses <a href="https://getbootstrap.com/">Bootstrap</a> for styling. The <code>theme</code> parameter in the yaml front-matter of this Rmd document describes a <a href="https://rstudio.github.io/bslib/reference/bs_theme.html"><code>bslib::bs_theme()</code></a> object. This particular example uses Bootstrap 3 (<code>version: 3</code>), which is primarily for ‘legacy’ documents that would break with Bootstrap 4 or above.</p>
+</section>
+<section id="themed-plots" class="level2 tabset tabset-pills">
+<h2 class="tabset tabset-pills anchored" data-anchor-id="themed-plots">Themed Plots</h2>
+<p>When running this document with <a href="https://rstudio.github.io/thematic/"><code>{thematic}</code></a> installed, the <code>thematic::thematic_rmd(font = "auto")</code> effectively translates <code>theme</code> (CSS) settings to new global theming defaults for <code>{ggplot2}</code>, <code>{lattice}</code>, and <code>{base}</code> R graphics:</p>
+<section id="ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="ggplot2">ggplot2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NewThemic_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lattice" class="level3">
+<h3 class="anchored" data-anchor-id="lattice">lattice</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lattice<span class="sc">::</span><span class="fu">show.settings</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NewThemic_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="base" class="level3">
+<h3 class="anchored" data-anchor-id="base">base</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">col =</span> thematic<span class="sc">::</span><span class="fu">thematic_get_option</span>(<span class="st">"accent"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NewThemic_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
