@@ -10,4 +10,4 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
 ```
 
-This is [my other online website](abidalishaikh.github.io/Distill) , where i worked on Distill package from R, however Quarto is a new and latest inclusion from the R community with enhanced features.
+This is [my other online website](https://abidalishaikh.github.io/Distill) , where i worked on Distill package from R, however Quarto is a new and latest inclusion from the R community with enhanced features.

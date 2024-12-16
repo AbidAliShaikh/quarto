@@ -11,7 +11,7 @@ website:
       - text: "About"
         href: about.qmd
       - text: "Regression Steps"
-        href: Regression_analysis.qmd
+        href: Regressionanalysis.qmd
       - text: "Git Setup"
         href: GitSetup.qmd
       - text: "Dark Theme"

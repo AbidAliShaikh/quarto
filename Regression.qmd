@@ -7,7 +7,7 @@ title: "Regression"
 The state.x77 builtin database contains the murder data of US. We will analyse the cause of a murder in US. The following variables are analyzed using regression analysis:
 
 | Murder                                    | Population            | Illiteracy                               | Income                   | Frost                                                                   |
-|-------------------------------------------|-----------------------|------------------------------------------|--------------------------|-------------------------------------------------------------------------|
+|-------------|-------------|-------------|-------------|--------------------|
 | murder rate per 100,000 population (1976) | Population as of 1974 | Illiteracy (1970, percent of population) | Per capita income (1974) | mean number of days with minimum temperature below freezing (1931-1960) |
 |                                           |                       |                                          |                          |                                                                         |
 
