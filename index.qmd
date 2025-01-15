@@ -11,3 +11,11 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 ```
 
 This is [my other online website](https://abidalishaikh.github.io/Distill) , where i worked on Distill package from R, however Quarto is a new and latest inclusion from the R community with enhanced features.
+
+These are useful R websites:
+
+https://r-graph-gallery.com/
+
+https://ggplot2.tidyverse.org/reference/index.html
+
+https://ggplot2-book.org/

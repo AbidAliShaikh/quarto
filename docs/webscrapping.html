@@ -8,7 +8,7 @@
 
 <meta name="author" content="Abid Ali Shaikh">
 
-<title>Exploratory Analysis – Quarto Website</title>
+<title>webscrapping – Quarto Website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -139,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exploratory Analysis</h1>
+<h1 class="title">webscrapping</h1>
 </div>
 
 
@@ -162,13 +162,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">General syntax</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">GreenMetric Ranking</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Miscellaneous Rules</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>These are most basic syntax for webscrapping</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The GreenMetric website’s rankings interface doesn’t use a URL parameter like <code>page=1</code> to navigate pages. Instead, it relies on button-based navigation, which complicates automated data extraction. However, this is manageable using tools like R’s <strong>rvest</strong> package combined with <strong>RSelenium</strong> or JavaScript-based scraping methods.</p>
+<p>Here’s a basic approach to automate this:</p>
+<section id="understanding-the-layout" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-layout">1. <strong>Understanding the Layout</strong></h3>
 <ul>
-<li><p>The Exploratory analysis involves initial general observation of the data for inferential purposes and any hypothesis after wards using statistical methods; the initial general observation involves summary statistics, mean, mode and medians and sometimes standard deviations. There are various R base functions to do it some of them are list below:</p>
-<ol type="1">
-<li><p>summary(data_frame)</p></li>
-<li><p>describe.</p></li>
-</ol></li>
+<li><p>The rankings are displayed in a paginated table.</p></li>
+<li><p>Each page contains 100 entries, and navigation requires interacting with buttons.</p></li>
 </ul>
+</section>
+<section id="tools-for-scraping" class="level3">
+<h3 class="anchored" data-anchor-id="tools-for-scraping">2. <strong>Tools for Scraping</strong></h3>
+<ul>
+<li><p><strong>RSelenium</strong>: This enables interaction with dynamic web elements like buttons.</p></li>
+<li><p><strong>rvest</strong>: For extracting table data after interacting with the buttons.<br>
+</p></li>
+</ul>
+</section>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+
+</div>
+</div>
+</div>
 
 
 
