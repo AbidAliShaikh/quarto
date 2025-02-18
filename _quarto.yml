@@ -20,7 +20,8 @@ website:
         menu:
           - text: "Exploratory Analysis"
             href: exploratory.qmd
-          
+          - text: "Advanced Vis. R"
+            href: Adv.Vis.ggR.Rmd
 format:
   html:
     theme: cosmo

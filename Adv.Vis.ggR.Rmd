@@ -1,0 +1,375 @@
+---
+title: "Advanced Data Visualization with R"
+author: "Abid Ali Shaikh"
+date: "2025-02-05"
+output: html_document
+toc: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#setwd("~/../OneDrive/RSpace/2024-25/Advanced R/")
+#install.packages("GGally")
+#install.packages("gcookbook")
+library(tidyverse)
+
+```
+
+## R Advanced Course
+
+The Advanced visualization using ggplot in R course teaches several ways
+we can draw scatterplots along-with the geom lines with varying
+confidence intervals or without them using se=F. The libraries used
+start with GGaly and gcookbook. You can learn more on
+<http://abidalishaikh.github.io/quarto>.
+
+Let's explore these two libraries; using data(package="gcookbook") shows
+various datasets in this library as below: Data sets in package
+'gcookbook':
+
+-   aapl Apple stock data
+
+-   anthoming Homing in desert ants
+
+-   cabbage_exp Summary of cabbages data set
+
+-   climate Global climate temperature anomaly data from 1800 to 2011
+
+-   corneas Corneal thickness of eyes
+
+-   countries Health and economic data about countries around the world
+    from 1960-2010
+
+-   drunk Convictions for drunkenness
+
+-   heightweight Height and weight of schoolchildren
+
+-   isabel Data from simulation of hurricane Isabel
+
+-   madmen Successful sexual relations in Mad Men (TV show) madmen2
+    Attempted sexual relations in Mad Men (TV show)\
+    marathon Marathon and half-marathon times
+
+-   pg_mean Means of results from an experiment on plant growth
+
+-   plum Plum root cuttings (long format)
+
+-   plum_wide Plum root cuttings (wide format)
+
+-   simpledat Simple example data set
+
+-   simpledat_long Simple example data set (long format)
+
+-   tg Summarized ToothGrowth data
+
+-   tophitters2001 Batting averages of the top hitters in Major League
+    Baseball in 2001
+
+-   uspopage Age distribution of population in the United States,
+    1900-2002
+
+-   uspopchange Change in population of states in the U.S. between 2000
+    and 2010
+
+-   wind Wind speed and direction worldpop World population estimates
+    from 10,000 B.C. to 2,000 A.D.
+
+Most of these datasets have longitudinal information over various time
+periods.
+
+*For this course, We read the already downloaded files from the previous
+course of the specialization:*
+
+```{r GGally}
+library(tidyverse)
+cces <- drop_na(read_csv("c:/Users/stech/OneDrive/RSpace/2024-25/RCourseggplot/cces_sample_coursera.csv"))
+cel <- read_csv("c:/Users/stech/OneDrive/RSpace/2024-25/RCourseggplot/cel_volden_wiseman-_coursera.csv")
+
+```
+
+## Variables to consider
+
+For our visualization we use educ and ideo5 of the cces data: both have
+integer values the higher the educ level better the education and the
+higher the ideo5 higher the strictness of ideology.
+
+```{r educ vs ideo5 in cces data}
+cor(cces$ideo5,cces$educ)
+# we have -ve cor value, we can explore it using plot
+
+cces |>
+  select(ideo5,educ) |>
+  ggplot(aes(x=ideo5, y=educ))+
+  geom_jitter()
+
+```
+
+But we don't know its trend from the figure so we try add a geom_smooth
+here, demonstrates the negative correlation trend.
+
+```{r}
+cces |>
+  select(ideo5,educ) |>
+  ggplot(aes(x=ideo5, y=educ))+
+  geom_jitter()+
+  geom_smooth() # we can add level=.9 for 90% C.I. or 
+# we can also use se=F in geom_soomth to remove the C.I from the smooth line. also we can add method="lm" for straight abline.
+
+```
+
+`next we make a dataset with two correlated and one negatively correlated data and working on scatterplot matrix using GGally library`{=context}
+
+```{r}
+library(GGally)
+
+var1 <- runif(100, min=0,max=100)
+var2 <- var1 + rnorm(100,1,.2)
+var3 <- var1*(-rnorm(100,1,.2))
+df <- tibble(var1,var2,var3)
+GGally::ggpairs(df)
+
+```
+
+ggpairs is robust; To control lower and diag layers' color and visual
+aspects of ggpairs we make two functions
+
+```{r upper lower ggpairs}
+
+my_scatter <- function(data, mapping){
+  ggplot(data,mapping=mapping)+
+    geom_jitter(color="red")
+}
+my_density <- function(data,mapping){
+  ggplot(data,mapping=mapping)+
+    geom_density(alpha=.05, fill="darkblue")
+}
+
+ggpairs(df,
+        lower=list(continuous = my_scatter),
+        diag=list(continuous = my_density))
+
+
+```
+
+ggcorplot is another aspect of visualizing using shaded correlations
+
+we work on pid7 (1 = Democ, 7: Repub) and pew_religion (1=important,
+5=not imp.) variables
+
+```{r ggcorplot}
+library(ggcorrplot)
+library(ggthemes)
+
+
+ r<-  cces |>
+  select(educ,pid7,pew_religimp)|>
+  cor(use = "complete.obs")
+  ggcorrplot(r,type = "lower",title = "ggcorplot",method = "circle",colors = c("brown","yellow","darkblue"),outline.color = "black")
+
+  ggcorrplot(r,type="lower",ggtheme = theme_wsj())
+  ggcorrplot(r,type="lower",ggtheme = theme_foundation())
+
+
+
+  
+```
+
+## Working on higher legislative score
+
+The next section visualizes the highest legislative (les) scores for
+various congress members (thomas_name) in 114th congress. We consider
+only 25 samples here.
+
+```{r higher les score}
+cel %>%
+  filter (congress == 114) %>%
+  slice_sample(n = 25)%>%
+  select(les,thomas_name)%>%
+  ggplot(aes(x=les, y=reorder(thomas_name,les)))+
+  geom_point(size=3, color="steelblue")+
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color="blue",linetype="dashed"))
+
+
+```
+
+## The geom_segment function
+
+we flip the x and y in above plot without using coord_flip function,
+here we flipped the x and y mappings alongside we also used the
+geom_segment to plot a segment of the plot using x, xend and y, yend
+parameters
+
+```{r geom_segment}
+cel %>%
+  filter (congress == 114) %>%
+  slice_sample(n = 25)%>%
+  select(les,thomas_name)%>%
+  ggplot(aes(y=les, x=reorder(thomas_name,les)))+
+  geom_point(size=3, color="steelblue")+
+  geom_segment(aes(x=thomas_name,xend=thomas_name,y=0,yend = les))+
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color="blue",linetype="dashed"),
+        axis.text.x = element_text(angle=90))
+
+
+
+```
+
+## Scatter Fitness
+
+The following codes demonstrate some codes from the r-graphics.org using
+the gcookbook library.
+
+```{r gcookbook}
+library(gcookbook)
+heightweight %>%
+  #select(ageYear,heightIn)%>%
+  ggplot(aes(x=ageYear,y=heightIn,color=sex))+
+  #geom_point()+
+  geom_smooth(method="loess",level=.99)
+
+
+
+
+```
+
+## Maps
+
+```{r maps}
+
+library(maps)
+
+wd <- map_data("world")
+pakcities <- world.cities %>%
+  filter((country.etc == "Pakistan" | country.etc == "India") & pop > 500000)
+
+wd %>%
+  filter(region == "Pakistan" | region=="India")%>%
+  ggplot(aes(x=long,y=lat,group=group))+
+  geom_polygon(fill="white",color="black")+
+  geom_point(data=pakcities,aes(x=long,y=lat,group=NULL,size=pop),color="red")
+  
+
+
+
+
+```
+
+## Animations using gganimate
+
+```{r gganimate}
+library(gganimate)
+#library(transformr)
+library(gifski)
+
+mtcars  %>%
+  ggplot(aes(x=factor(cyl),y=mpg))+
+  geom_boxplot()+
+  #facet_wrap(~gear, ncol=1)
+  transition_states(gear)
+
+
+cel <- read_csv("c:/Users/stech/OneDrive/RSpace/2024-25/RCourseggplot/cel_volden_wiseman-_coursera.csv")
+
+cel %>%
+  mutate(party = recode(dem, "1"="demo","0"="rep"))%>%
+  group_by(year, party)%>%
+  summarize("Seats" = n(),.groups = "drop")%>%
+  ggplot(aes(x=year,y=Seats, fill=party))+
+  geom_bar(stat="identity")+
+  geom_hline(yintercept = 217)+
+  transition_layers() # also use transition_time(years)
+
+############ using layers for various geom filters
+########### using all_pass seniority and party for 115 cong
+cel115 <- filter(cel,cel$congress==115)
+cel$party<-recode(cel$dem,`1`="Democrat",`0`="Republican")
+d1 <- filter(cel,congress==115 & party=="Democrat")
+d2 <- filter(cel,congress==115 & party=="Republican")
+ggplot()+
+  geom_jitter(aes(x=seniority,y=all_pass,color=party),data=d1)+
+  geom_jitter(aes(x=seniority,y=all_pass,color=party),data=d2)+
+  #geom_smooth(aes(x=seniority,y=all_pass,color=party),data=d1)+
+  #geom_smooth(aes(x=seniority,y=all_pass,color=party),data=d2)+
+  scale_color_manual(values=c("blue","red"))+
+  transition_layers()
+
+######################33333
+
+
+ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot()
+
+anim <- ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot() +
+  transition_states(factor(cyl))
+
+anim
+
+anim2 <- anim + 
+  enter_fade()+
+  exit_fade()
+
+anim2
+
+cong_dat<- cel %>% 
+  group_by(year,party) %>%
+  summarise("Seats"=n())
+
+anim3<-ggplot(cong_dat,aes(x=year,y=Seats,fill=party))+
+  geom_bar(stat="identity")+
+  geom_hline(yintercept=217)+
+  scale_fill_manual(values=c("blue","red"))+
+  transition_time(year)+
+  shadow_wake(wake_length=1,alpha=FALSE,wrap=FALSE)
+
+anim3
+#anim_save("test.gif",animation=anim3)
+
+
+```
+
+## Plotly
+
+```{r plotly}
+library (plotly)
+
+m<- mtcars  %>%
+  ggplot(aes(x=factor(cyl),y=mpg))+
+  geom_boxplot()+
+  facet_wrap(~gear, ncol=1)
+
+plotly::ggplotly(m)
+
+dat <- data.frame(cond=rep(c("A","B"),each=10),
+                  xvar = 1:20+rnorm(20,sd=3),
+                  yvar = 1:20+rnorm(20,sd=3))
+    
+p<- dat %>%
+  ggplot(aes(xvar,yvar))+
+  geom_point(shape=1)
+
+plotly::ggplotly(p)
+
+######### Animation using ggplotly
+
+cel <- read_csv("c:/Users/stech/OneDrive/RSpace/2024-25/RCourseggplot/cel_volden_wiseman-_coursera.csv")
+
+
+p1 <-cel %>%
+  mutate(Party = recode(dem,"1"="Democ","0"="Repub"))%>%
+  ggplot(aes(y=les,x=seniority, frame=year))+
+  geom_point(aes(color=Party))+
+  scale_color_manual(values=c("red","blue"))
+
+ggplotly(p1)
+
+p1
+
+```
